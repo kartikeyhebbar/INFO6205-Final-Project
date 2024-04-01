@@ -44,9 +44,11 @@ public class TicTacToe implements Game<TicTacToe> {
         State<TicTacToe> state = start();
         int player = opener();
         while (!state.isTerminal()) {
+        	System.out.println(state.toString());
             state = state.next(state.chooseMove(player));
             player = 1 - player;
-        }
+        }   
+        System.out.println(state.toString());
         return state;
     }
 
@@ -223,9 +225,9 @@ public class TicTacToe implements Game<TicTacToe> {
 
         @Override
         public String toString() {
-            return "TicTacToe{\n" +
-                    position +
-                    "\n}";
+            return "TicTacToe\n" +
+                    position.render() +
+                    "\n";
         }
 
         public TicTacToeState(Position position) {
