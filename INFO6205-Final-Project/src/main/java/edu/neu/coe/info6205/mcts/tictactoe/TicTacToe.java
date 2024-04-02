@@ -44,65 +44,65 @@ public class TicTacToe implements Game<TicTacToe> {
      *
      * @return the terminal State.
      */
-//    State<TicTacToe> runGame() {
-//        State<TicTacToe> state = start();
-//        int player = opener();
-//        while (!state.isTerminal()) {
-//        	System.out.println(state.toString());
-//            state = state.next(state.chooseMove(player));
-//            player = 1 - player;
-//        }   
-//        System.out.println(state.toString());
-//        return state;
-//    }
     State<TicTacToe> runGame() {
-        Scanner scanner = new Scanner(System.in);
         State<TicTacToe> state = start();
         int player = opener();
-        boolean firstMoveDone = false;
-
         while (!state.isTerminal()) {
-            System.out.println(state.toString());
-
-            if (player == TicTacToe.X && !firstMoveDone) {
-                System.out.println("Enter your move (row and column): ");
-                int row = scanner.nextInt();
-                int col = scanner.nextInt();
-                // Validate the input
-                if (row >= 0 && row < 3 && col >= 0 && col < 3) {
-                    // Attempt to make the move
-                    Collection<Move<TicTacToe>> moves = state.moves(player);
-                    Move<TicTacToe> userMove = moves.stream()
-                            .filter(move -> {
-                                int[] pos = ((TicTacToe.TicTacToeMove) move).move();
-                                return pos[0] == row && pos[1] == col;
-                            })
-                            .findFirst()
-                            .orElse(null);
-
-                    if (userMove != null) {
-                        state = state.next(userMove);
-                        firstMoveDone = true; // Mark the first move as done
-                    } else {
-                        System.out.println("Invalid move, try again.");
-                        continue;
-                    }
-                } else {
-                    System.out.println("Invalid input, try again.");
-                    continue;
-                }
-            } else {
-                // AI or random moves for the rest of the game
-                state = state.next(state.chooseMove(player));
-            }
-            
+        	System.out.println(state.toString());
+            state = state.next(state.chooseMove(player));
             player = 1 - player;
         }
-
         System.out.println(state.toString());
-        scanner.close();
         return state;
     }
+//    State<TicTacToe> runGame() {
+//        Scanner scanner = new Scanner(System.in);
+//        State<TicTacToe> state = start();
+//        int player = opener();
+//        boolean firstMoveDone = false;
+//
+//        while (!state.isTerminal()) {
+//            System.out.println(state.toString());
+//
+//            if (player == TicTacToe.X && !firstMoveDone) {
+//                System.out.println("Enter your move (row and column): ");
+//                int row = scanner.nextInt();
+//                int col = scanner.nextInt();
+//                // Validate the input
+//                if (row >= 0 && row < 3 && col >= 0 && col < 3) {
+//                    // Attempt to make the move
+//                    Collection<Move<TicTacToe>> moves = state.moves(player);
+//                    Move<TicTacToe> userMove = moves.stream()
+//                            .filter(move -> {
+//                                int[] pos = ((TicTacToe.TicTacToeMove) move).move();
+//                                return pos[0] == row && pos[1] == col;
+//                            })
+//                            .findFirst()
+//                            .orElse(null);
+//
+//                    if (userMove != null) {
+//                        state = state.next(userMove);
+//                        firstMoveDone = true; // Mark the first move as done
+//                    } else {
+//                        System.out.println("Invalid move, try again.");
+//                        continue;
+//                    }
+//                } else {
+//                    System.out.println("Invalid input, try again.");
+//                    continue;
+//                }
+//            } else {
+//                // AI or random moves for the rest of the game
+//                state = state.next(state.chooseMove(player));
+//            }
+//
+//            player = 1 - player;
+//        }
+//
+//        System.out.println(state.toString());
+//        scanner.close();
+//        return state;
+//    }
 
     /**
      * This method determines the opening player (the "white" by analogy with chess).
