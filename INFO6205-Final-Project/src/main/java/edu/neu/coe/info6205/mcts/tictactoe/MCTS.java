@@ -30,7 +30,7 @@ public class MCTS {
         } else {
             Node<TicTacToe> bestMove = mcts.bestChild(root);
             if (bestMove != null) {
-                System.out.println("Recommended move: " + bestMove);
+                System.out.println("Recommended move: " + bestMove.state().toString());
             } else {
                 System.out.println("No best move could be determined.");
             }
@@ -45,10 +45,12 @@ public class MCTS {
     }
 
     private Node<TicTacToe> select(Node<TicTacToe> node) {
+//        System.out.println(node.isLeaf());
         while (!node.isLeaf()) {
             if (!node.children().isEmpty()) {
                 node = bestChild(node);
             } else {
+                node.explore();  // This will handle the expansion and backpropagation
                 return node;
             }
         }
