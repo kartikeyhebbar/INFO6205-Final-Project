@@ -13,10 +13,11 @@ import java.util.Random;
  * Class to represent a Monte Carlo Tree Search for TicTacToe.
  */
 public class MCTS {
+    public static TicTacToeNode root;
 
     public static void main(String[] args) {
         TicTacToe game = new TicTacToe();
-        TicTacToeNode root = new TicTacToeNode(game.start());
+        root = new TicTacToeNode(game.start());
         MCTS mcts = new MCTS(root);
         mcts.run(1000); // Run 1000 iterations of MCTS
 
@@ -57,7 +58,7 @@ public class MCTS {
         return node;
     }
 
-    private Node<TicTacToe> bestChild(Node<TicTacToe> node) {
+    Node<TicTacToe> bestChild(Node<TicTacToe> node) {
         if (node.children().isEmpty()) {
             return null; // Or handle differently if needed
         }
@@ -101,9 +102,9 @@ public class MCTS {
         }
     }
 
-    public MCTS(Node<TicTacToe> root) {
-        this.root = root;
+    public MCTS(TicTacToeNode root) {
+        MCTS.root = root;
     }
 
-    private final Node<TicTacToe> root;
+//    private final Node<TicTacToe> root;
 }
