@@ -1,4 +1,4 @@
-package edu.neu.coe.info6205.bqs;
+package edu.neu.coe.info6205.mcts.core;
 
 import java.util.*;
 

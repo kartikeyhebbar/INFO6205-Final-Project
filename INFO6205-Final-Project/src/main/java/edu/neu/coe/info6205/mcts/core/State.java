@@ -1,7 +1,5 @@
 package edu.neu.coe.info6205.mcts.core;
 
-import edu.neu.coe.info6205.bqs.UnorderedIterator;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
