@@ -18,7 +18,6 @@ public class MCTS {
     public static void main(String[] args) {
         TicTacToe game = new TicTacToe();
         root = new TicTacToeNode(game.start());
-        System.out.println(game.start().toString());
         MCTS mcts = new MCTS(root);
         mcts.run(1000); // Run 1000 iterations of MCTS
 
@@ -33,6 +32,8 @@ public class MCTS {
             Node<TicTacToe> bestMove = mcts.bestChild(root);
             if (bestMove != null) {
                 System.out.println("Recommended move: " + bestMove.state().toString());
+                System.out.println("Number of playouts: " + bestMove.playouts());
+                System.out.println("Number of wins: " + bestMove.wins());
             } else {
                 System.out.println("No best move could be determined.");
             }
