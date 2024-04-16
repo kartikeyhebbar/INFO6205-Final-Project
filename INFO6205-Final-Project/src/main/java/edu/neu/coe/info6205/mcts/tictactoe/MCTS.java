@@ -18,6 +18,7 @@ public class MCTS {
     public static void main(String[] args) {
         TicTacToe game = new TicTacToe();
         root = new TicTacToeNode(game.start());
+        System.out.println(game.start().toString());
         MCTS mcts = new MCTS(root);
         mcts.run(1000); // Run 1000 iterations of MCTS
 
@@ -45,7 +46,7 @@ public class MCTS {
         }
     }
 
-    private Node<TicTacToe> select(Node<TicTacToe> node) {
+    Node<TicTacToe> select(Node<TicTacToe> node) {
 //        System.out.println(node.isLeaf());
         while (!node.isLeaf()) {
             if (!node.children().isEmpty()) {
@@ -73,7 +74,7 @@ public class MCTS {
                 c * Math.sqrt(Math.log(node.getParent().playouts()) / (double) node.playouts());
     }
 
-    private int simulate(Node<TicTacToe> node) {
+    int simulate(Node<TicTacToe> node) {
         State<TicTacToe> state = node.state();
         Random random = new Random();
         while (!state.isTerminal()) {
@@ -84,7 +85,7 @@ public class MCTS {
         return state.winner().orElse(0); // Assuming 0 for draw, 1 for X wins, -1 for O wins.
     }
 
-    private void backPropagate(Node<TicTacToe> node, int result) {
+    void backPropagate(Node<TicTacToe> node, int result) {
         while (node != null) {
             int playout = node.playouts();
             node.setPlayouts(playout+1);
