@@ -33,18 +33,23 @@ public class Game {
             int player = ROUND.nextRound();
 
             if (player == 1) {
-                System.out.println("Player 1 move");
+                System.out.println("Computer move");
                 player1.makeNextMove(board);
 
             } else {
-                System.out.println("Player 2 move");
+                System.out.println("Player move");
                 player2.makeNextMove(board);
             }
 
             winningPlayer = board.getStatus();
 
             if (winningPlayer == 1 || winningPlayer == 2) {
-                System.out.println("winning player is: " + winningPlayer);
+                String winnerName = "";
+                if(winningPlayer == 1)
+                    winnerName = "Computer";
+                else
+                    winnerName = "Player";
+                System.out.println("winning player is: " + winnerName);
                 gameOver = true;
             }
 
