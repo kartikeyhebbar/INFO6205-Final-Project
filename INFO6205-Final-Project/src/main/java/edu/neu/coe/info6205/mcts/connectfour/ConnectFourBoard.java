@@ -77,22 +77,23 @@ public class ConnectFourBoard extends AbstractBoard implements Board {
     // returns false when coordinates already marked
     public boolean setSquareOnBoard(Point coordinates, int player) {
         if (coordinates == null) {
-            throw new RuntimeException("coordinates are null");
+            throw new RuntimeException("Coordinates are null");
         }
         if (state == null) {
-            throw new RuntimeException("game.ConnectFourBoard is null");
+            throw new RuntimeException("Game board state is null");
         }
 
-        int current = state[coordinates.x][coordinates.y];
-        if (current != 0) {
-            return false;
-        } else {
-            ++pieces;
-            latestMove = coordinates;
-            latestMoveByPlayer = player;
-            state[coordinates.x][coordinates.y] = player;
+        // Find the lowest empty spot in the specified column
+        for (int y = 0; y < height; y++) {
+            if (state[coordinates.x][y] == 0) { // Checking from bottom up
+                state[coordinates.x][y] = player;
+                latestMove = new Point(coordinates.x, y);
+                latestMoveByPlayer = player;
+                ++pieces;
+                return true;
+            }
         }
-        return true;
+        return false; // Column is full
     }
 
     // returns null when board is full

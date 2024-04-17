@@ -83,23 +83,21 @@ public class MCTS {
             Move<TicTacToe> move = moves.get(random.nextInt(moves.size()));
             state = state.next(move);
         }
-        return state.winner().orElse(0); // Assuming 0 for draw, 1 for X wins, -1 for O wins.
+        return state.winner().orElse(-1); // Assuming 0 for draw, 1 for X wins, -1 for O wins.
     }
 
     void backPropagate(Node<TicTacToe> node, int result) {
         while (node != null) {
             int playout = node.playouts();
             node.setPlayouts(playout+1);
-//            node.playouts()++;
             int win = node.wins();
             if ((node.state().player() == 1 && result == 1) ||
                     (node.state().player() == 0 && result == -1)) {
                 node.setWins(win + 2);
-//                node.wins() += 2;
-            } else if (result == 0) {
-                node.setWins(win + 1);
-//                node.wins() += 1; // Draw is considered 1 point
-            }
+                }
+//                else if (result == 0) {
+//                node.setWins(win + 1); 
+//            }
             node = node.getParent();
         }
     }
