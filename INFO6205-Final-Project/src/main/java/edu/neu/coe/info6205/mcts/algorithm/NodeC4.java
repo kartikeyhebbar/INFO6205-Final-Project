@@ -33,5 +33,6 @@ public class NodeC4 {
 
     void addChild(NodeC4 node) {
         children.add(node);
+        node.parent = this;
     }
 }

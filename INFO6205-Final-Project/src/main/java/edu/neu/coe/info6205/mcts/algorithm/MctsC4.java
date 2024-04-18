@@ -51,7 +51,7 @@ public class MctsC4 {
         return best.board;
     }
 
-    private NodeC4 expandNodeAndReturnRandom(NodeC4 node) {
+    public NodeC4 expandNodeAndReturnRandom(NodeC4 node) {
         NodeC4 result = node;
         Board board = node.board;
         for (Board move : board.getAllLegalNextMoves()) {
@@ -63,7 +63,7 @@ public class MctsC4 {
         return node.children.get(Board.RANDOM_GENERATOR.nextInt(node.children.size()));
     }
 
-    private void backPropagation(int playerNumber, NodeC4 selected) {
+    public void backPropagation(int playerNumber, NodeC4 selected) {
         NodeC4 node = selected;
         while (node != null) {
             node.visits++;
@@ -74,7 +74,7 @@ public class MctsC4 {
         }
     }
 
-    private int simulateLightPlayout(NodeC4 promisingNode) {
+    public int simulateLightPlayout(NodeC4 promisingNode) {
         NodeC4 node = new NodeC4(promisingNode.board);
         int boardStatus = node.board.getStatus();
         if (boardStatus == opponentId) {
@@ -90,7 +90,7 @@ public class MctsC4 {
         return node.board.getStatus(); // Return the status of the board at the end of the simulation
     }
 
-    private NodeC4 selectPromisingNode(NodeC4 tree) {
+    public NodeC4 selectPromisingNode(NodeC4 tree) {
         NodeC4 node = tree;
         while (!node.children.isEmpty()) {
             node = UCT.findBestNodeWithUCT(node);
