@@ -5,6 +5,9 @@ import edu.neu.coe.info6205.mcts.core.Move;
 import edu.neu.coe.info6205.mcts.core.Node;
 import edu.neu.coe.info6205.mcts.core.State;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -17,21 +20,39 @@ public class TicTacToe implements Game<TicTacToe> {
      * @param args command-line arguments.
      */
     public static void main(String[] args) {
-        long startTime = System.currentTimeMillis(); // Start timer
+        int iters = 5000;     // set number of iterations of game flow we want to play
+        String filePath = "benchmark.txt";      // output file to store benchmark results
 
-        // NOTE the behavior of the game to be run will be based on the TicTacToe instance field: random.
-        State<TicTacToe> state = new TicTacToe().runGame();
-        int winner;
-        if (state.winner().isPresent()) {
-            winner = state.winner().get();
-            if(winner == 1) System.out.println("TicTacToe: winner is: X");
-            else System.out.println("TicTacToe: winner is: 0");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            long totalTimeInMillis = 0l;
+            long totalTime = 0l;
+
+            for(int i=0; i<iters; i++) {
+                long startTime = System.currentTimeMillis(); // Start timer
+
+                // NOTE the behavior of the game to be run will be based on the TicTacToe instance field: random.
+                State<TicTacToe> state = new TicTacToe().runGame();
+                int winner;
+                if (state.winner().isPresent()) {
+                    winner = state.winner().get();
+                    // write winner to benchmarking report
+                    writer.write(Integer.toString(winner));
+                    if (winner == 1) System.out.println("TicTacToe: winner is: X");
+                    else System.out.println("TicTacToe: winner is: 0");
+                } else System.out.println("TicTacToe: draw");
+
+                long endTime = System.currentTimeMillis(); // End timer
+                totalTime = endTime - startTime; // Calculate total time
+                totalTimeInMillis += totalTime;
+                System.out.println("Total MCTS execution time for TicTacToe: " + totalTime + " milliseconds");
+
+                // write to file
+                writer.write("," + totalTime + "\n");
+            }
+            System.out.println("Average total time (in milliseconds): " + totalTimeInMillis/iters);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
         }
-        else System.out.println("TicTacToe: draw");
-
-        long endTime = System.currentTimeMillis(); // End timer
-        long totalTime = endTime - startTime; // Calculate total time
-        System.out.println("Total MCTS execution time for TicTacToe: " + totalTime + " milliseconds");
     }
 
     public static final int X = 1;
