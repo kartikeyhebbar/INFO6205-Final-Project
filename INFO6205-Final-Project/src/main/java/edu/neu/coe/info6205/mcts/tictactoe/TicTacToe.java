@@ -27,6 +27,7 @@ public class TicTacToe implements Game<TicTacToe> {
             long totalTimeInMillis = 0l;
             long totalTime = 0l;
 
+
             for(int i=0; i<iters; i++) {
                 long startTime = System.currentTimeMillis(); // Start timer
 
