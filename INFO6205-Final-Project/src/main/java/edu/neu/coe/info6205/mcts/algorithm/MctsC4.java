@@ -1,5 +1,6 @@
 package edu.neu.coe.info6205.mcts.algorithm;
 
+import edu.neu.coe.info6205.mcts.connectfour.Main;
 import edu.neu.coe.info6205.mcts.utils.Board;
 import java.time.Instant;
 
@@ -44,6 +45,7 @@ public class MctsC4 {
         NodeC4 best = tree.getChildWithMaxScore();
         Instant end = Instant.now();
         long millis = end.toEpochMilli() - start.toEpochMilli();
+        Main.benchmark.add(millis);
 
         System.out.println("Did " + counter + " expansions/simulations within " + millis + " millis");
         System.out.println("Best move scored " + best.score + " and was visited " + best.visits + " times");
