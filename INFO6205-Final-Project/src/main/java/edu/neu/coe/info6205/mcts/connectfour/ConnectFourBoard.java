@@ -108,7 +108,6 @@ public class ConnectFourBoard extends AbstractBoard implements Board {
 
     // returns 0 if game is in progress, returns the number of the player who won, returns 3 for a even
     public int getStatus() {
-
         if (isBoardFull()) {
             status = DRAW;
             return status;
@@ -119,56 +118,66 @@ public class ConnectFourBoard extends AbstractBoard implements Board {
             return status;
         }
 
-        int row = 0, col = 0, diag = 0, rdiag = 0;
+        int row, col, diag, rdiag;
 
+        // Check vertical (columns) and horizontal (rows) lines
         for (int i = 0; i < width; i++) {
-            if (i < height && state[latestMove.x][i] == latestMoveByPlayer) {
-                col++;
-                if (col == 4) {
-                    status = latestMoveByPlayer == 1 ? PLAYER_1_WON : PLAYER_2_WON;
-                    return status;
-                }
-            } else col = 0;
-
-            if (state[i][latestMove.y] == latestMoveByPlayer) {
-                row++;
-                if (row  == 4) {
-                    status = latestMoveByPlayer == 1 ? PLAYER_1_WON : PLAYER_2_WON;
-                    return status;
-                }
-            } else row = 0;
-
-            int left = latestMove.x-latestMove.y;
-            if (left >= 0 && left+i < width && i < height && state[left+i][i] == latestMoveByPlayer) {
-                diag++;
-                if (diag == 4) {
-                    status = latestMoveByPlayer == 1 ? PLAYER_1_WON : PLAYER_2_WON;
-                    return status;
-                }
-            } else diag = 0;
-
-            int right = latestMove.x+latestMove.y;
-            if (right < width && right-i >= 0 && i < height && state[right-i][i] == latestMoveByPlayer) {
-                rdiag++;
-                if (rdiag == 4) {
-                    status = latestMoveByPlayer == 1 ? PLAYER_1_WON : PLAYER_2_WON;
-                    return status;
-                }
-            } else rdiag = 0;
-/*
-                if (state[latestMove.x][i] == latestMoveByPlayer) {
+            col = 0;
+            row = 0;
+            for (int j = 0; j < height; j++) {
+                // Check vertical lines (columns)
+                if (state[i][j] == latestMoveByPlayer) {
                     col++;
                     if (col == 4) {
                         status = latestMoveByPlayer == 1 ? PLAYER_1_WON : PLAYER_2_WON;
                         return status;
                     }
-                } else col = 0;
+                } else {
+                    col = 0;
+                }
 
+                // Check horizontal lines (rows)
+                if (state[j][latestMove.y] == latestMoveByPlayer) {
+                    row++;
+                    if (row == 4) {
+                        status = latestMoveByPlayer == 1 ? PLAYER_1_WON : PLAYER_2_WON;
+                        return status;
+                    }
+                } else {
+                    row = 0;
+                }
+            }
+        }
 
-                if (state[latestMove.x][latestMove.y-i] == latestMoveByPlayer) row++;
-                if (state[i][i] == latestMoveByPlayer) diag++;
-                if (state[width - i - 1][i] == latestMoveByPlayer) rdiag++;*/
+        // Check diagonals
+        for (int i = 0; i < width; i++) {
+            // Check for diagonal from bottom-left to top-right (/)
+            diag = 0;
+            for (int j = 0; i + j < width && j < height; j++) {
+                if (state[i + j][j] == latestMoveByPlayer) {
+                    diag++;
+                    if (diag == 4) {
+                        status = latestMoveByPlayer == 1 ? PLAYER_1_WON : PLAYER_2_WON;
+                        return status;
+                    }
+                } else {
+                    diag = 0;
+                }
+            }
 
+            // Check for diagonal from top-left to bottom-right (\)
+            rdiag = 0;
+            for (int j = 0; i - j >= 0 && j < height; j++) {
+                if (state[i - j][j] == latestMoveByPlayer) {
+                    rdiag++;
+                    if (rdiag == 4) {
+                        status = latestMoveByPlayer == 1 ? PLAYER_1_WON : PLAYER_2_WON;
+                        return status;
+                    }
+                } else {
+                    rdiag = 0;
+                }
+            }
         }
 
         status = GAME_IN_PROGRESS;
