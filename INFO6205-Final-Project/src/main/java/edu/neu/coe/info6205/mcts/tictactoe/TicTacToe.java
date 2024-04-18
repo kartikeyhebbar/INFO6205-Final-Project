@@ -17,6 +17,8 @@ public class TicTacToe implements Game<TicTacToe> {
      * @param args command-line arguments.
      */
     public static void main(String[] args) {
+        long startTime = System.currentTimeMillis(); // Start timer
+
         // NOTE the behavior of the game to be run will be based on the TicTacToe instance field: random.
         State<TicTacToe> state = new TicTacToe().runGame();
         if (state.winner().isPresent()) {
@@ -25,6 +27,10 @@ public class TicTacToe implements Game<TicTacToe> {
             else System.out.println("TicTacToe: winner is: 0");
         }
         else System.out.println("TicTacToe: draw");
+
+        long endTime = System.currentTimeMillis(); // End timer
+        long totalTime = endTime - startTime; // Calculate total time
+        System.out.println("Total MCTS execution time for TicTacToe: " + totalTime + " milliseconds");
     }
 
     public static final int X = 1;
