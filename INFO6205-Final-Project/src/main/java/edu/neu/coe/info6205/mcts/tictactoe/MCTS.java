@@ -15,30 +15,27 @@ import java.util.Random;
 public class MCTS {
     public static TicTacToeNode root;
 
-    public static void main(String[] args) {
-        TicTacToe game = new TicTacToe();
-        root = new TicTacToeNode(game.start());
-        MCTS mcts = new MCTS(root);
-        mcts.run(1000); // Run 1000 iterations of MCTS
-
-        // After running MCTS, you might want to choose the best move
-        // This can be done by selecting the child of the root with the highest win ratio
-//        Node<TicTacToe> bestMove = root.children().stream()
-//                .max(Comparator.comparing(n -> n.wins() / (double) n.playouts()))
-//                .orElseThrow();
-        if (root.children().isEmpty()) {
-            System.out.println("No moves available.");
-        } else {
-            Node<TicTacToe> bestMove = mcts.bestChild(root);
-            if (bestMove != null) {
-                System.out.println("Recommended move: " + bestMove.state().toString());
-                System.out.println("Number of playouts: " + bestMove.playouts());
-                System.out.println("Number of wins: " + bestMove.wins());
-            } else {
-                System.out.println("No best move could be determined.");
-            }
-        }
-    }
+//    public static void main(String[] args) {
+//        TicTacToe game = new TicTacToe();
+//        root = new TicTacToeNode(game.start());
+//        MCTS mcts = new MCTS(root);
+//        mcts.run(1000); // Run 1000 iterations of MCTS
+//
+//        // After running MCTS, you might want to choose the best move
+//        // This can be done by selecting the child of the root with the highest win ratio
+//        if (root.children().isEmpty()) {
+//            System.out.println("No moves available.");
+//        } else {
+//            Node<TicTacToe> bestMove = mcts.bestChild(root);
+//            if (bestMove != null) {
+//                System.out.println("Recommended move: " + bestMove.state().toString());
+//                System.out.println("Number of playouts: " + bestMove.playouts());
+//                System.out.println("Number of wins: " + bestMove.wins());
+//            } else {
+//                System.out.println("No best move could be determined.");
+//            }
+//        }
+//    }
     public void run(int iterations) {
         for (int i = 0; i < iterations; i++) {
             Node<TicTacToe> node = select(root);
@@ -86,18 +83,33 @@ public class MCTS {
         return state.winner().orElse(-1); // Assuming 0 for draw, 1 for X wins, -1 for O wins.
     }
 
+//    void backPropagate(Node<TicTacToe> node, int result) {
+//        while (node != null) {
+//            int playout = node.playouts();
+//            node.setPlayouts(playout+1);
+//            int win = node.wins();
+//            if ((node.state().player() == 1 && result == 1) ||
+//                    (node.state().player() == 0 && result == -1)) {
+//                node.setWins(win + 1);
+//                }
+////            else if (result == 0) {
+////                node.setWins(win + 1);
+////            }
+//            node = node.getParent();
+//        }
+//    }
     void backPropagate(Node<TicTacToe> node, int result) {
         while (node != null) {
-            int playout = node.playouts();
-            node.setPlayouts(playout+1);
-            int win = node.wins();
-            if ((node.state().player() == 1 && result == 1) ||
-                    (node.state().player() == 0 && result == -1)) {
-                node.setWins(win + 2);
-                }
-//                else if (result == 0) {
-//                node.setWins(win + 1); 
-//            }
+            // Increment playouts for the node
+            node.setPlayouts(node.playouts() + 1);
+
+            // Update wins based on the result of the game
+            if ((node.state().player() == 1 && result == 1) ||  // X wins and it's X's move
+                    (node.state().player() == 0 && result == -1)) { // O wins and it's O's move
+                node.setWins(node.wins() + 1);
+            } else if (result == 0) { // Draw
+                node.setWins(node.wins() + 1); // Optionally update for a draw if using a scoring system that rewards draws
+            }
             node = node.getParent();
         }
     }
