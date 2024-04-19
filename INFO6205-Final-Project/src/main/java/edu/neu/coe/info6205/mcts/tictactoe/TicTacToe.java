@@ -20,7 +20,7 @@ public class TicTacToe implements Game<TicTacToe> {
      * @param args command-line arguments.
      */
     public static void main(String[] args) {
-        int iters = 5000;     // set number of iterations of game flow we want to play
+        int iters = 250;     // set number of iterations of game flow we want to play
         String filePath = "benchmark.txt";      // output file to store benchmark results
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
