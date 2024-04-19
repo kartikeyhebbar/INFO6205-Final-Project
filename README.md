@@ -63,11 +63,11 @@ For every CPU operation, MCTS algorithm is used where it follows all the four  s
 
 ### REFERENCES
 
-![](https://www.researchgate.net/figure/Outline-of-Monte-Carlo-Tree-Search-adapted-from-Chaslot-et-al-39_fig2_224160689)
-![](https://en.wikipedia.org/wiki/Monte_Carlo_tree_search)
-![](https://www.flaticon.com/free-icon/tic-tac-toe_10199746)
-![](https://en.wikipedia.org/wiki/Tic-tac-toe)
-![](https://www.baeldung.com/java-monte-carlo-tree-search)
-![](https://www.rd.com/article/how-to-win-connect-4/)
-![](https://en.wikipedia.org/wiki/Connect_Four)
-![](https://www.harrycodes.com/blog/monte-carlo-tree-search)
+![https://www.researchgate.net/figure/Outline-of-Monte-Carlo-Tree-Search-adapted-from-Chaslot-et-al-39_fig2_224160689](https://www.researchgate.net/figure/Outline-of-Monte-Carlo-Tree-Search-adapted-from-Chaslot-et-al-39_fig2_224160689)
+![https://en.wikipedia.org/wiki/Monte_Carlo_tree_search](https://en.wikipedia.org/wiki/Monte_Carlo_tree_search)
+![https://www.flaticon.com/free-icon/tic-tac-toe_10199746](https://www.flaticon.com/free-icon/tic-tac-toe_10199746)
+![https://en.wikipedia.org/wiki/Tic-tac-toe](https://en.wikipedia.org/wiki/Tic-tac-toe)
+![https://www.baeldung.com/java-monte-carlo-tree-search](https://www.baeldung.com/java-monte-carlo-tree-search)
+![https://www.rd.com/article/how-to-win-connect-4/](https://www.rd.com/article/how-to-win-connect-4/)
+![https://en.wikipedia.org/wiki/Connect_Four](https://en.wikipedia.org/wiki/Connect_Four)
+![https://www.harrycodes.com/blog/monte-carlo-tree-search](https://www.harrycodes.com/blog/monte-carlo-tree-search)
